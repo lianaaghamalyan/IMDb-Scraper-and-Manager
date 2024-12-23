@@ -8,54 +8,89 @@ public class Stack<T> {
         stack = new ArrayList<>();
     }
 
-    // Add an item to the stack
     public void push(T item) {
         stack.add(item);
     }
 
-    // Remove and return the top item from the stack
     public T pop() {
         if (stack.isEmpty()) {
-            System.out.println("Stack is empty. Nothing to remove.");
-            return null;
+            throw new IllegalStateException("Stack is empty.");
         }
-        return stack.removeLast();
+        return stack.remove(stack.size() - 1); // Remove from the top (LIFO)
     }
 
-    // Print all elements in the stack
-    public void printAll() {
+    public T peek() {
         if (stack.isEmpty()) {
-            System.out.println("Stack is empty.");
-            return;
+            throw new IllegalStateException("Stack is empty.");
         }
-        System.out.println("Stack contains:");
+        return stack.get(stack.size() - 1); // Peek the top element
+    }
+
+    public boolean isEmpty() {
+        return stack.isEmpty();
+    }
+
+    public int size() {
+        return stack.size();
+    }
+
+    public T get(int index) { // Allow access by index
+        return stack.get(index);
+    }
+
+    public void set(int index, T value) { // Allow setting by index
+        stack.set(index, value);
+    }
+
+    public void printAll() {
+        // Automatically print in LIFO order
         for (int i = stack.size() - 1; i >= 0; i--) {
             System.out.println(stack.get(i));
         }
     }
 
-    // Search for an item in the stack
-//    public boolean search(T item) {
+    //    public boolean search(T item) {
 //        return stack.contains(item);
 //    }
 
-    public boolean search(String title) {
-        for (T item : stack) {
-            if (item instanceof Movie && ((Movie) item).getTitle().equalsIgnoreCase(title)) {
-                return true;
+    //    public boolean search(String title) {
+//        for (T item : stack) {
+//            if (item instanceof Movie && ((Movie) item).getTitle().equalsIgnoreCase(title)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
+
+    // Method to search movies until user types "End"
+    public void searchByUserInput() {
+        Scanner scanner = new Scanner(System.in);
+        String input;
+        boolean found;
+
+        while (true) {
+            System.out.println("\nEnter the title of the movie to search or type 'End' to exit: ");
+            input = scanner.nextLine().trim();
+
+            if (input.equalsIgnoreCase("End")) {
+                System.out.println("Exiting the search.");
+                break;
+            }
+
+            // Search for the movie title in the stack
+            found = false;
+            for (T movie : stack) {
+                if (movie instanceof Movie && ((Movie) movie).getTitle().toLowerCase().contains(input.toLowerCase())) {
+                    System.out.println("Found: " + movie);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                System.out.println("Movie not found. Try again.");
             }
         }
-        return false;
-    }
-
-
-    // Get the size of the stack
-    public int size() {
-        return stack.size();
-    }
-
-    // Get an element by index
-    public T get(int index) {
-        return stack.get(index);
     }
 }

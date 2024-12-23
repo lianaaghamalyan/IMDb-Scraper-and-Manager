@@ -26,29 +26,30 @@ public class Main {
         System.out.println("\nRemoved the top movie: " + (removedMovie != null ? removedMovie : "No movie to remove"));
 
         // Print remaining movies after removal
-        System.out.println("\nMovies after removal:");
+        System.out.println("\nMovies after removal => ");
         movieStack.printAll();
 
         // Sort the stack using insertion sort
         ArrayList<Movie> sortedMovies = InsertionSort.sort(movieStack, Comparator.comparingDouble(Movie::getRating).reversed());
 
         // Print sorted movies
-        System.out.println("\nSorted movies:");
+        System.out.println("\nSorted movies after removal => ");
         for (Movie movie : sortedMovies) {
             System.out.println(movie);
         }
 
         // user input for searching
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("\n Bonus :P Enter movie title to search: ");
-        String searchTitle = scanner.nextLine();
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.print("\n Bonus :P Enter movie title to search: ");
+//        String searchTitle = scanner.nextLine();
+//
+//        if (movieStack.search(searchTitle)) {
+//            System.out.println("Movie '" + searchTitle + "' found.");
+//        } else {
+//            System.out.println("Movie '" + searchTitle + "' not found.");
+//        }
 
-        if (movieStack.search(searchTitle)) {
-            System.out.println("Movie '" + searchTitle + "' found.");
-        } else {
-            System.out.println("Movie '" + searchTitle + "' not found.");
-        }
-
-        scanner.close();
+//        scanner.close();
+        movieStack.searchByUserInput();
     }
 }
