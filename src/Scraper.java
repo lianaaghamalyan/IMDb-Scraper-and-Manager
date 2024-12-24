@@ -26,7 +26,7 @@ public class Scraper {
             Elements movieElements = document.select("li.ipc-metadata-list-summary-item");
 
             FileWriter csvWriter = new FileWriter("imdb_top.csv");
-            csvWriter.append("Rank, Title, Year, Rating\n");
+            csvWriter.append("Rank; Title; Year; Rating\n");
 
             int count = 0;
 
@@ -48,9 +48,9 @@ public class Scraper {
                     movieStack.push(movie);
 
                     // Write to CSV
-                    csvWriter.append(movie.getRank() + "," + " ")
-                            .append(movie.getTitle() + "," + " ")
-                            .append(movie.getYear() + "," + " ")
+                    csvWriter.append(movie.getRank() + ";" + " ")
+                            .append(movie.getTitle() + ";" + " ")
+                            .append(movie.getYear() + ";" + " ")
                             .append(movie.getRating() + "\n");
 
                     count++;
